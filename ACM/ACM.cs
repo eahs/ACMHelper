@@ -41,15 +41,15 @@ namespace ACMHelper
         }
 
         /* Given an input string containing numbers separated by spaces, returns a list of ints */
-        public static List<int> ToIntegerList (this string input)
+        public static List<int> ToIntegerList (this string input, string delimeter = " ")
         {
-            return input.Split(" ").Select(n => Convert.ToInt32(n)).ToList();
+            return input.Split(delimeter).Select(n => Convert.ToInt32(n)).ToList();
         }
 
         /* Given an input string containing numbers separated by spaces, returns a list of strings */
-        public static List<string> ToStringList(this string input)
+        public static List<string> ToStringList(this string input, string delimeter = " ")
         {
-            return input.Split(" ").ToList();
+            return input.Split(delimeter).ToList();
         }
 
 
@@ -58,8 +58,18 @@ namespace ACMHelper
             return Convert.ToInt32(input);
         }
 
+        public static long ToLong(this string input)
+        {
+            return Convert.ToInt64(input);
+        }
+
+        public static double ToDouble(this string input)
+        {
+            return Convert.ToDouble(input);
+        }
+
         /*
-            List<int> nums = ACM.ReadIntegerList();
+            List<int> nums = Console.ReadLine().ToIntegerList();
 
             var permutations = nums.Permute().ToList();
 
@@ -178,6 +188,29 @@ namespace ACMHelper
             return result;
         }
 
+        /// <summary>
+        /// Converts the given decimal number to the numeral system with the
+        /// specified radix (in the range [2, 36]).
+        /// </summary>
+        /// <param name="fromBase">The base of the number string you are converting from.</param>
+        /// <param name="toBase">The base you are converting to (in the range [2, 36]).</param>
+        /// <returns></returns>
+        public static string ConvertBase(string number, int fromBase, int toBase)
+        {
+            const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+
+            string result = number;
+            int val = 0, place = 1;
+
+            for (int i = number.Length-1; i >= 0; i--)
+            {
+                val += Digits.IndexOf(number[i]) * place;
+                place *= fromBase;
+            }
+
+            return val.ToBase(toBase);
+        }
+
         public static string ToWords(this int number)
         {
             if (number == 0)
@@ -245,6 +278,12 @@ namespace ACMHelper
             if (number >= 4) return "IV" + ToRoman(number - 4);
             if (number >= 1) return "I" + ToRoman(number - 1);
             throw new ArgumentOutOfRangeException("something bad happened");
+        }
+
+        public static int Evaluate (this string expression)
+        {
+            NCalc.Expression ex = new NCalc.Expression(expression);
+            return ex.Evaluate().ToString().ToInteger();
         }
     }
 }
