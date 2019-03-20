@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28010.2026
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACM", "ACM\ACM.csproj", "{D76AC0D5-1A0D-4063-BB38-4DAF3C058B17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACMTest", "ACMTest\ACMTest.csproj", "{3C50ABE4-3AC7-495F-B127-7468107E0477}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{D76AC0D5-1A0D-4063-BB38-4DAF3C058B17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D76AC0D5-1A0D-4063-BB38-4DAF3C058B17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D76AC0D5-1A0D-4063-BB38-4DAF3C058B17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D76AC0D5-1A0D-4063-BB38-4DAF3C058B17}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3C50ABE4-3AC7-495F-B127-7468107E0477}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3C50ABE4-3AC7-495F-B127-7468107E0477}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3C50ABE4-3AC7-495F-B127-7468107E0477}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3C50ABE4-3AC7-495F-B127-7468107E0477}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {860DAA41-8AC3-47A7-AA7D-34CDF6641799}
+	EndGlobalSection
+EndGlobal
