@@ -72,7 +72,15 @@ namespace ACMHelper
             var highestPrimes = (Enumerable.Range(sqrt + 1, n - sqrt)
                                       .AsParallel()
                                       .Where(i => lowestPrimes.All(prime => i % prime != 0)));
-            return lowestPrimes.Concat(highestPrimes).ToList();
+            var result = lowestPrimes.Concat(highestPrimes).ToList();
+
+            if (primeList == null || n > maxPrime)
+            {
+                primeList = result;
+                maxPrime = n;
+            }
+
+            return result;
         }
 
         /* Given an input string containing numbers separated by spaces, returns a list of ints */
