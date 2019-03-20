@@ -5,6 +5,7 @@
     <Authors>Michael Tanczos</Authors>
     <Company>EAHS</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>EAHS.ACM</PackageId>
   </PropertyGroup>
 
   <ItemGroup>

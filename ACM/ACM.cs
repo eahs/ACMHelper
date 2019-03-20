@@ -6,6 +6,9 @@ namespace ACMHelper
 {
     public static class ACM
     {
+        private static List<int> primeList = null;
+        private static int maxPrime = -1;
+
         /* Returns a list of primes up to n */
         public static List<int> GeneratePrimes(int n)
         {
@@ -26,7 +29,39 @@ namespace ACMHelper
                 if (ok)
                     primes.Add(i);
             }
+
+            if (primeList == null || n > maxPrime)
+            {
+                primeList = primes;
+                maxPrime = n;
+            }
             return primes;
+        }
+
+        /* Given an integer n, return a list of it's prime factors */
+        public static List<int> GetPrimeFactors(this int n)
+        {
+            List<int> factors = new List<int>();
+
+            if (primeList == null || n > maxPrime)
+            {
+                GeneratePrimes(n);
+            }
+
+            while (n > 1)
+            {
+                for (int i = 0; i < primeList.Count; i++)
+                {
+                    if (n % primeList[i] == 0)
+                    {
+                        factors.Add(primeList[i]);
+                        n /= primeList[i];
+                        break;
+                    }
+                }
+            }
+
+            return factors;
         }
 
         /* Returns a list of primes up to n using parallelization */
@@ -66,6 +101,29 @@ namespace ACMHelper
         public static double ToDouble(this string input)
         {
             return Convert.ToDouble(input);
+        }
+
+        public static IEnumerable<string> FindAllSubstrings(this string s)
+        {
+            List<string> list = new List<string>();
+            for (int i = 0; i < s.Length; i++)
+            {
+                for (int j = i; j < s.Length; j++)
+                {
+                    string ss = s.Substring(i, j - i + 1);
+                    list.Add(ss);
+                }
+            }
+            return list;
+        }
+
+        public static string LongestCommonSubstring(string a, string b)
+        {
+            var substringsOfA = a.FindAllSubstrings();
+            var substringsOfB = b.FindAllSubstrings();
+            var commonSubstrings = substringsOfA.Intersect(substringsOfB);
+
+            return commonSubstrings.OrderByDescending(x => x.Length).FirstOrDefault();
         }
 
         /*
@@ -138,6 +196,17 @@ namespace ACMHelper
             }
         }
 
+        public static bool IsIncreasing(this List<int> list)
+        {
+            for (int i = 0; i < list.Count - 1; i++)
+            {
+                if (list[i] >= list[i + 1])
+                    return false;
+            }
+
+            return true;
+        }
+
         /* Reverses a string - e.g. 
          *      s = "blah"; 
          *      string rev = s.Reverse();  
@@ -195,17 +264,24 @@ namespace ACMHelper
         /// <param name="fromBase">The base of the number string you are converting from.</param>
         /// <param name="toBase">The base you are converting to (in the range [2, 36]).</param>
         /// <returns></returns>
-        public static string ConvertBase(string number, int fromBase, int toBase)
+        public static string ConvertBase(this string number, int fromBase, int toBase)
         {
             const string Digits = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
             string result = number;
             int val = 0, place = 1;
 
-            for (int i = number.Length-1; i >= 0; i--)
+            try
             {
-                val += Digits.IndexOf(number[i]) * place;
-                place *= fromBase;
+                for (int i = number.Length - 1; i >= 0; i--)
+                {
+                    val += Digits.IndexOf(number[i]) * place;
+                    place *= fromBase;
+                }
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Number must be formatted as a numeric string.");
             }
 
             return val.ToBase(toBase);
