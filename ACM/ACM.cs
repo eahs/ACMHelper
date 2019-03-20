@@ -287,6 +287,30 @@ namespace ACMHelper
             return val.ToBase(toBase);
         }
 
+        /// <summary>
+        /// Converts the given integer to a string representing the Ordinal representation
+        /// Example: 1 = 1st, 2 = 2nd, 3 = 3rd, 4 = 4th, etc.
+        /// </summary>
+        /// <param name="n">The number you are finding the ordinal place representation for.</param>
+        /// <returns></returns>
+        public static string ToNthPlace(this int n)
+        {
+            string num = n.ToString();
+
+            if (num.EndsWith("1")) return n + "st";
+            if (num.EndsWith("2")) return n + "nd";
+            if (num.EndsWith("4")) return n + "nd";
+
+            return n + "th";
+        }
+
+        /// <summary>
+        /// Converts the given integer number to an english version of the word
+        /// Example: 
+        ///     "1234".ToWords() -> "One thousand two hundred thirty four"
+        /// </summary>
+        /// <param name="n">The number you are converting to an english word.</param>
+        /// <returns></returns>
         public static string ToWords(this int number)
         {
             if (number == 0)
@@ -336,6 +360,12 @@ namespace ACMHelper
             return words;
         }
 
+        /// <summary>
+        /// Converts the given integer number to roman numerals.
+        /// <c>string roman = 57.ToRoman(); -> "LVII"</c>
+        /// </summary>
+        /// <param name="n">The number you are converting to a Roman numerals.</param>
+        /// <returns></returns>
         public static string ToRoman(this int number)
         {
             if ((number < 0) || (number > 3999)) throw new ArgumentOutOfRangeException("insert value betwheen 1 and 3999");

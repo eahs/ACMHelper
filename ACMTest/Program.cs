@@ -33,7 +33,7 @@ namespace ACMTest
             // Turn an int into a different arbitrary base (binary = 2, octal = 8, hex = 16)
             string output = 42.ToBase(2);  // 101010
             string roman = 57.ToRoman(); // LVII
-
+            
             string everything = ACM.ConvertBase("101010", 2, 10); // 42
             string everything2 = "101010".ConvertBase(2, 10); // 42
 
