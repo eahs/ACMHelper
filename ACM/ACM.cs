@@ -251,11 +251,11 @@ namespace ACMHelper
             return true;
         }
 
-        /* Reverses a string - e.g. 
-         *      s = "blah"; 
-         *      string rev = s.Reverse();  
-         *      ... rev contains "halb"
-         */
+        /// <summary>
+        /// Reverses a string - e.g. "taco" => "ocat"
+        /// </summary>
+        /// <param name="input">string to reverse</param>
+        /// <returns></returns>
         public static string Reverse(this string input)
         {
             char[] chars = input.ToCharArray();
