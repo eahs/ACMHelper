@@ -91,13 +91,23 @@ namespace ACMHelper
             return result;
         }
 
-        /* Given an input string containing numbers separated by spaces, returns a list of ints */
+        /// <summary>
+        /// Given an input string containing numbers separated by spaces, returns a list of ints
+        /// </summary>
+        /// <param name="input">Input string delimeted by delimeter string</param>
+        /// <param name="delimeter">String that separates each number int the input - default is a space</param>
+        /// <returns></returns>
         public static List<int> ToIntegerList (this string input, string delimeter = " ")
         {
             return input.Split(delimeter).Select(n => Convert.ToInt32(n)).ToList();
         }
 
-        /* Given an input string containing numbers separated by spaces, returns a list of strings */
+        /// <summary>
+        /// Given an input string containing numbers separated by spaces, returns a list of strings
+        /// </summary>
+        /// <param name="input">Input string delimeted by delimeter string</param>
+        /// <param name="delimeter">String that separates each number int the input - default is a space</param>
+        /// <returns></returns>
         public static List<string> ToStringList(this string input, string delimeter = " ")
         {
             return input.Split(delimeter).ToList();
