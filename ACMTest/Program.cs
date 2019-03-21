@@ -10,8 +10,8 @@ namespace ACMTest
         static void Main(string[] args)
         {
             // Generate list of primes less than or equal to 5000
-            List<int> primes = ACM.GeneratePrimes(5000);
-            List<int> primesFaster = ACM.GeneratePrimesParallel(5000);
+            //List<int> primes = ACM.GeneratePrimes(5000);
+            //List<int> primesFaster = ACM.GeneratePrimesParallel(5000);
 
             List<int> factors = ACM.GetPrimeFactors(38);  // [2, 19]
 
@@ -49,6 +49,13 @@ namespace ACMTest
 
             // Generates all possible substrings of a string
             List<string> allSubstrings = "i love cats".FindAllSubstrings().ToList();
+
+            // Greatest common divisor (biggest number that divides 12 and 8)
+            int gcd = ACM.GreatestCommonDivisor(12, 8);  // 4
+
+            // Least common multiple (first number that is a multiple of a and b)
+            int lcm = ACM.LeastCommonMultiple(2, 7);  // 14
+
         }
     }
 }

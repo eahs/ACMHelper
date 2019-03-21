@@ -6,6 +6,8 @@
     <Company>EAHS</Company>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageId>EAHS.ACM</PackageId>
+    <Description>Designed for competitive programming on the secondary level.</Description>
+    <Version>1.0.1</Version>
   </PropertyGroup>
 
   <ItemGroup>

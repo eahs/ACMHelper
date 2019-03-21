@@ -9,7 +9,11 @@ namespace ACMHelper
         private static List<int> primeList = null;
         private static int maxPrime = -1;
 
-        /* Returns a list of primes up to n */
+        /// <summary>
+        /// Returns a list of prime numbers less than or equal to n
+        /// </summary>
+        /// <param name="n">Max number</param>
+        /// <returns></returns>
         public static List<int> GeneratePrimes(int n)
         {
             var primes = new List<int>();
@@ -38,14 +42,18 @@ namespace ACMHelper
             return primes;
         }
 
-        /* Given an integer n, return a list of it's prime factors */
+        /// <summary>
+        /// Returns a list of prime factors for n
+        /// </summary>
+        /// <param name="n">Number to factor</param>
+        /// <returns></returns>
         public static List<int> GetPrimeFactors(this int n)
         {
             List<int> factors = new List<int>();
 
             if (primeList == null || n > maxPrime)
             {
-                GeneratePrimes(n);
+                throw new Exception("You must call ACM.GeneratePrimes(n) for the highest n you expect to need to check at least once before using this method.");
             }
 
             while (n > 1)
@@ -111,6 +119,11 @@ namespace ACMHelper
             return Convert.ToDouble(input);
         }
 
+        /// <summary>
+        /// Returns a list of every substring that can be generated from a string
+        /// </summary>
+        /// <param name="s">String to generate list from</param>
+        /// <returns></returns>
         public static IEnumerable<string> FindAllSubstrings(this string s)
         {
             List<string> list = new List<string>();
@@ -125,6 +138,12 @@ namespace ACMHelper
             return list;
         }
 
+        /// <summary>
+        /// Returns the longest common substring that exists inside both a and b
+        /// </summary>
+        /// <param name="a">First string</param>
+        /// <param name="b">Second string</param>
+        /// <returns></returns>
         public static string LongestCommonSubstring(string a, string b)
         {
             var substringsOfA = a.FindAllSubstrings();
@@ -144,6 +163,12 @@ namespace ACMHelper
                 List<int> perm = permutation.ToList();
             }
         */
+        /// <summary>
+        /// Returns an Enumerable of Enumerables - All permutations of the original list
+        /// </summary>
+        /// <param name="sequence">Source list</param>
+        /// <param name="indexToSkip">Index you want to remove</param>
+        /// <returns></returns>
         public static IEnumerable<IEnumerable<T>> Permute<T>(this IEnumerable<T> sequence)
         {
             if (sequence == null)
@@ -189,7 +214,13 @@ namespace ACMHelper
             }
         }
 
-        private static IEnumerable<T> AllExcept<T>(this IEnumerable<T> sequence, int indexToSkip)
+        /// <summary>
+        /// Returns a list of everything except a particular index
+        /// </summary>
+        /// <param name="sequence">Source list</param>
+        /// <param name="indexToSkip">Index you want to remove</param>
+        /// <returns></returns>
+        public static IEnumerable<T> AllExcept<T>(this IEnumerable<T> sequence, int indexToSkip)
         {
             if (sequence == null)
             {
@@ -204,6 +235,11 @@ namespace ACMHelper
             }
         }
 
+        /// <summary>
+        /// Determines whether the list is strictly increasing (that is each number is larger than the previous)
+        /// </summary>
+        /// <param name="list">List of integers</param>
+        /// <returns></returns>
         public static bool IsIncreasing(this List<int> list)
         {
             for (int i = 0; i < list.Count - 1; i++)
@@ -399,5 +435,34 @@ namespace ACMHelper
             NCalc.Expression ex = new NCalc.Expression(expression);
             return ex.Evaluate().ToString().ToInteger();
         }
+
+        /// <summary>
+        /// Finds the largest number that both a and b can be evenly divided by
+        /// </summary>
+        /// <param name="a">First number</param>
+        /// <param name="b">Second number</param>
+        /// <returns></returns>
+        public static int GreatestCommonDivisor(int a, int b)
+        {
+            while (b != 0)
+            {
+                int temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+
+        /// <summary>
+        /// Finds the smallest number that is a multiple of both a and b
+        /// </summary>
+        /// <param name="a">First number</param>
+        /// <param name="b">Second number</param>
+        /// <returns></returns>
+        public static int LeastCommonMultiple(int a, int b)
+        {
+            return (a / GreatestCommonDivisor(a, b)) * b;
+        }
+
     }
 }
