@@ -353,7 +353,7 @@ namespace ACMHelper
 
             if (num.EndsWith("1")) return n + "st";
             if (num.EndsWith("2")) return n + "nd";
-            if (num.EndsWith("4")) return n + "nd";
+            if (num.EndsWith("3")) return n + "rd";
 
             return n + "th";
         }
