@@ -69,6 +69,13 @@ public class ACM
                 .collect(Collectors.toList());
     }
 
+    public static int[] toIntegerArray (String input)
+    {
+        return Arrays.stream(input.split("\\s"))
+                .mapToInt(Integer::parseInt)
+                .toArray();
+    }
+
     public static List<String> toStringList (String input)
     {
         return Arrays.stream(input.split("\\s"))
