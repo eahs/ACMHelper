@@ -1,6 +1,7 @@
 import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 import static javafx.application.Platform.exit;
 
@@ -381,5 +382,20 @@ public class ACM
 
     public static List<Character> toCharacterList(final String str) {
         return str.chars().mapToObj(e->(char)e).collect(Collectors.toList());
+    }
+
+    public static List<Integer> range(int start, int end)
+    {
+        return IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+    }
+
+    public static String padRight(String input, int length, String fill){
+        String pad = input.trim() + String.format("%"+length+"s", "").replace(" ", fill);
+        return pad.substring(0, length);
+    }
+
+    public static String padLeft(String input, int length, String fill){
+        String pad = String.format("%"+length+"s", "").replace(" ", fill) + input.trim();
+        return pad.substring(pad.length() - length, pad.length());
     }
 }
