@@ -1,5 +1,3 @@
-package ACMHelper;
-
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -336,4 +334,26 @@ public class ACM
         return sb.toString();
     }
 
+    public static int greatestCommonDivisor (int a, int b)
+    {
+
+        // Always set to positive
+        a = ( a > 0) ? a : -a;
+        b = ( b > 0) ? b : -b;
+
+        while(a != b)
+        {
+            if(a > b)
+                a -= b;
+            else
+                b -= a;
+        }
+
+        return a;
+    }
+
+    public static int leastCommonMultiple (int a , int b)
+    {
+        return (a / greatestCommonDivisor(a, b)) * b;
+    }
 }
