@@ -1,4 +1,5 @@
 import java.util.*;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static javafx.application.Platform.exit;
@@ -355,5 +356,23 @@ public class ACM
     public static int leastCommonMultiple (int a , int b)
     {
         return (a / greatestCommonDivisor(a, b)) * b;
+    }
+
+    public static int sumList (List<Integer> list) {
+
+        int sum = list.stream().mapToInt(Integer::intValue).sum();
+
+        return sum;
+    }
+
+    // Returns a portion of a list according to some filter (equivalent to C# Where)
+    // ACM.filterList(nums, num -> num % 2 == 0)
+    public static <T> List<T> filterList (List<T> list, Predicate<T> filter)
+    {
+        return list.stream().filter(filter).collect(Collectors.toList());
+    }
+
+    public static List<Character> toCharacterList(final String str) {
+        return str.chars().mapToObj(e->(char)e).collect(Collectors.toList());
     }
 }
