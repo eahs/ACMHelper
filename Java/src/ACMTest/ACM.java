@@ -2,79 +2,40 @@ import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static javafx.application.Platform.exit;
 
 public class ACM
 {
-    private static List<Integer> primeList = null;
-    private static int maxPrime = -1;
+    //=====================================================================================================
+    //     INPUT CONVERSION FUNCTIONS
+    // =====================================================================================================
 
-    // Generate primes equal to or below n
-    public static List<Integer> generatePrimes (int n)
+    public static List<Integer> toIntegerList (String input, String delimeter)
     {
-        boolean prime[] = new boolean[n + 1];
-        Arrays.fill(prime, true);
-        for (int p = 2; p * p <= n; p++) {
-            if (prime[p]) {
-                for (int i = p * 2; i <= n; i += p) {
-                    prime[i] = false;
-                }
-            }
-        }
-        List<Integer> primeNumbers = new LinkedList<>();
-        for (int i = 2; i <= n; i++) {
-            if (prime[i]) {
-                primeNumbers.add(i);
-            }
-        }
-
-        if (((primeList == null) || (n > maxPrime))) {
-            primeList = primeNumbers;
-            maxPrime = n;
-        }
-
-        return primeNumbers;
-    }
-
-    // Get prime factors for a number n
-    public static List<Integer> getPrimeFactors (int n)
-    {
-        List<Integer> factors = new ArrayList<Integer>();
-        if (((primeList == null) || (n > maxPrime))) {
-            System.out.println("You must call ACM.GeneratePrimes(n) for the highest n you expect to need to check at least once befor" +
-                    "e using this method.");
-            exit();
-        }
-
-        while (n > 1) {
-            for (int i = 0; i < primeList.size(); i++) {
-                if (n % primeList.get(i) == 0) {
-                    factors.add(primeList.get(i));
-                    n /= primeList.get(i);
-                    break;
-                }
-
-            }
-
-        }
-
-        return factors;
+        return Arrays.stream(input.split(delimeter))
+                .map(Integer::parseInt)
+                .collect(Collectors.toList());
     }
 
     // Given an input string containing numbers separated by spaces, returns a list
     public static List<Integer> toIntegerList (String input)
     {
-        return Arrays.stream(input.split("\\s"))
-                .map(Integer::parseInt)
-                .collect(Collectors.toList());
+        return toIntegerList(input, "\\s");
+    }
+
+    public static int[] toIntegerArray (String input, String delimeter)
+    {
+        return Arrays.stream(input.split(delimeter))
+                .mapToInt(Integer::parseInt)
+                .toArray();
     }
 
     public static int[] toIntegerArray (String input)
     {
-        return Arrays.stream(input.split("\\s"))
-                .mapToInt(Integer::parseInt)
-                .toArray();
+        return toIntegerArray(input, "\\s");
     }
 
     public static List<String> toStringList (String input)
@@ -98,32 +59,6 @@ public class ACM
     public static double toDouble (String input)
     {
         return Double.parseDouble(input);
-    }
-
-    // Generates a list of all the permutations of a list
-    public static <T> List<List<T>> permute (ArrayList<T> list)
-    {
-        return null;
-    }
-
-    // Reverses a string
-    public static String reverseString (String input)
-    {
-        StringBuilder sb = new StringBuilder(input);
-
-        return sb.reverse().toString();
-    }
-
-    // Converts a number to an arbitrary base
-    public static String toBase(int number, int numberBase)
-    {
-        return convertBase(number + "", 10, numberBase);
-    }
-
-    // Converts a number string from a particular base (fromBase) to another base (toBase)
-    public static String convertBase (String from, int fromBase, int toBase)
-    {
-        return Integer.toString(Integer.parseInt(from, fromBase), toBase);
     }
 
     final private  static String[] units = {"zero","one","two","three","four",
@@ -207,16 +142,77 @@ public class ACM
         return s;
     }
 
-    // Returns the index of the max element in a list, -1 if empty
-    public static int maxIndex (List list)
+    // Converts a number to an arbitrary base
+    public static String toBase(int number, int numberBase)
     {
-        return list.indexOf(Collections.max(list));
+        return convertBase(number + "", 10, numberBase);
     }
 
-    // Returns the index of the min element in a list, -1 if empty
-    public static int minIndex (List list)
+    // Converts a number string from a particular base (fromBase) to another base (toBase)
+    public static String convertBase (String from, int fromBase, int toBase)
     {
-        return list.indexOf(Collections.min(list));
+        return Integer.toString(Integer.parseInt(from, fromBase), toBase);
+    }
+
+
+
+    //=====================================================================================================
+    //     MATH FUNCTIONS
+    // =====================================================================================================
+
+    private static List<Integer> primeList = null;
+    private static int maxPrime = -1;
+
+    // Generate primes equal to or below n
+    public static List<Integer> generatePrimes (int n)
+    {
+        boolean prime[] = new boolean[n + 1];
+        Arrays.fill(prime, true);
+        for (int p = 2; p * p <= n; p++) {
+            if (prime[p]) {
+                for (int i = p * 2; i <= n; i += p) {
+                    prime[i] = false;
+                }
+            }
+        }
+        List<Integer> primeNumbers = new LinkedList<>();
+        for (int i = 2; i <= n; i++) {
+            if (prime[i]) {
+                primeNumbers.add(i);
+            }
+        }
+
+        if (((primeList == null) || (n > maxPrime))) {
+            primeList = primeNumbers;
+            maxPrime = n;
+        }
+
+        return primeNumbers;
+    }
+
+    // Get prime factors for a number n
+    public static List<Integer> getPrimeFactors (int n)
+    {
+        List<Integer> factors = new ArrayList<Integer>();
+        if (((primeList == null) || (n > maxPrime))) {
+            System.out.println("You must call ACM.GeneratePrimes(n) for the highest n you expect to need to check at least once befor" +
+                    "e using this method.");
+            exit();
+        }
+
+        while (n > 1) {
+            for (int i = 0; i < primeList.size(); i++) {
+                if (n % primeList.get(i) == 0) {
+                    factors.add(primeList.get(i));
+                    n /= primeList.get(i);
+                    break;
+                }
+
+            }
+
+        }
+
+        return factors;
     }
 
     // Evaluates a string math expression and returns a result
@@ -300,6 +296,113 @@ public class ACM
         }.parse();
     }
 
+    public static int greatestCommonDivisor (int a, int b)
+    {
+
+        // Always set to positive
+        a = ( a > 0) ? a : -a;
+        b = ( b > 0) ? b : -b;
+
+        while(a != b)
+        {
+            if(a > b)
+                a -= b;
+            else
+                b -= a;
+        }
+
+        return a;
+    }
+
+    public static int leastCommonMultiple (int a , int b)
+    {
+        return (a / greatestCommonDivisor(a, b)) * b;
+    }
+
+
+    //=====================================================================================================
+    //     LIST FUNCTIONS
+    // =====================================================================================================
+
+    // Generates a list of all the permutations of a list
+    public static <T> List<List<T>> permute (ArrayList<T> list)
+    {
+        return null;
+    }
+
+    // Returns the index of the max element in a list, -1 if empty
+    public static int maxIndex (List list)
+    {
+        return list.indexOf(Collections.max(list));
+    }
+
+    // Returns the index of the min element in a list, -1 if empty
+    public static int minIndex (List list)
+    {
+        return list.indexOf(Collections.min(list));
+    }
+
+    public static int sumList (List<Integer> list) {
+
+        int sum = list.stream().mapToInt(Integer::intValue).sum();
+
+        return sum;
+    }
+
+    // Returns a portion of a list according to some filter (equivalent to C# Where)
+    // ACM.filterList(nums, num -> num % 2 == 0)
+    public static <T> List<T> filterList (List<T> list, Predicate<T> filter)
+    {
+        return list.stream().filter(filter).collect(Collectors.toList());
+    }
+
+    public static List<Character> toCharacterList(final String str) {
+        return str.chars().mapToObj(e->(char)e).collect(Collectors.toList());
+    }
+
+    public static List<Integer> range(int start, int end)
+    {
+        return IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
+    }
+
+    //=====================================================================================================
+    //     STRING FUNCTIONS
+    // =====================================================================================================
+
+    // Reverses a string
+    public static String reverseString (String input)
+    {
+        StringBuilder sb = new StringBuilder(input);
+
+        return sb.reverse().toString();
+    }
+
+    public static String padRight(String input, int length, String fill){
+        String pad = input.trim() + String.format("%"+length+"s", "").replace(" ", fill);
+        return pad.substring(0, length);
+    }
+
+    public static String padLeft(String input, int length, String fill){
+        String pad = String.format("%"+length+"s", "").replace(" ", fill) + input.trim();
+        return pad.substring(pad.length() - length, pad.length());
+    }
+
+    public static String regexReplace(String input, String regex, StringReplacerCallback callback) {
+        StringBuffer resultString = new StringBuffer();
+        Pattern rgx = Pattern.compile(regex);
+        Matcher regexMatcher = rgx.matcher(input);
+        while (regexMatcher.find()) {
+            regexMatcher.appendReplacement(resultString, callback.replace(regexMatcher));
+        }
+        regexMatcher.appendTail(resultString);
+
+        return resultString.toString();
+    }
+
+    public interface StringReplacerCallback {
+        public String replace(Matcher match);
+    }
+
     public static String longestCommonSubstring(String a, String b)
     {
         StringBuilder sb = new StringBuilder();
@@ -343,59 +446,5 @@ public class ACM
         return sb.toString();
     }
 
-    public static int greatestCommonDivisor (int a, int b)
-    {
-
-        // Always set to positive
-        a = ( a > 0) ? a : -a;
-        b = ( b > 0) ? b : -b;
-
-        while(a != b)
-        {
-            if(a > b)
-                a -= b;
-            else
-                b -= a;
-        }
-
-        return a;
-    }
-
-    public static int leastCommonMultiple (int a , int b)
-    {
-        return (a / greatestCommonDivisor(a, b)) * b;
-    }
-
-    public static int sumList (List<Integer> list) {
-
-        int sum = list.stream().mapToInt(Integer::intValue).sum();
-
-        return sum;
-    }
-
-    // Returns a portion of a list according to some filter (equivalent to C# Where)
-    // ACM.filterList(nums, num -> num % 2 == 0)
-    public static <T> List<T> filterList (List<T> list, Predicate<T> filter)
-    {
-        return list.stream().filter(filter).collect(Collectors.toList());
-    }
-
-    public static List<Character> toCharacterList(final String str) {
-        return str.chars().mapToObj(e->(char)e).collect(Collectors.toList());
-    }
-
-    public static List<Integer> range(int start, int end)
-    {
-        return IntStream.rangeClosed(start, end).boxed().collect(Collectors.toList());
-    }
-
-    public static String padRight(String input, int length, String fill){
-        String pad = input.trim() + String.format("%"+length+"s", "").replace(" ", fill);
-        return pad.substring(0, length);
-    }
-
-    public static String padLeft(String input, int length, String fill){
-        String pad = String.format("%"+length+"s", "").replace(" ", fill) + input.trim();
-        return pad.substring(pad.length() - length, pad.length());
-    }
 }
+

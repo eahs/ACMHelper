@@ -18,6 +18,9 @@ public class Enemies {
                                         .filter(s -> !s.contains("00"))
                                         .collect(Collectors.toList()).size();
 
+        //List<String> list = IntStream.rangeClosed(1,100).filter(p -> p % 2 == 1).mapToObj(p -> ACM.toBase(p, 2)).collect(Collectors.toList());
+
+
         System.out.println("Number of arrangements :" + res);
 
     }

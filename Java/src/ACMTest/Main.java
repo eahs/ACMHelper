@@ -35,5 +35,7 @@ public class Main {
 
         String a = "the cat in the hat", b = "I left the cat in the garage";
         String common = ACM.longestCommonSubstring(a, b);  // "the cat in the "
+
+        String rgx = ACM.regexReplace("aabbba", "[a]+", m -> m.group().length()+"");
     }
 }
