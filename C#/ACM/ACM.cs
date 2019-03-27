@@ -103,6 +103,20 @@ namespace ACMHelper
         }
 
         /// <summary>
+        /// Given an integer splits the integer into it's individual digits and returns a list of ints
+        /// </summary>
+        /// <param name="input">Input int</param>
+        /// <returns></returns>
+        public static List<int> ToIntegerList (this int input)
+        {
+            return input.ToString()
+                        .ToCharArray()
+                        .Select(p => Convert.ToInt32(p + ""))
+                        .ToList();
+        }
+
+
+        /// <summary>
         /// Given an input string containing numbers separated by spaces, returns a list of strings
         /// </summary>
         /// <param name="input">Input string delimeted by delimeter string</param>
@@ -127,6 +141,22 @@ namespace ACMHelper
         public static double ToDouble(this string input)
         {
             return Convert.ToDouble(input);
+        }
+
+        /// <summary>
+        /// Returns the shortest common prefix among a list of strings
+        /// </summary>
+        /// <param name="list">List of strings to look through</param>
+        /// <returns></returns>
+        public static string ShortestCommonPrefix(this List<string> list)
+        {
+            string commonPrefix = new string(
+                                            list.First()
+                                                .Substring(0, list.Min(s => s.Length))
+                                                .TakeWhile((c, i) => list.All(s => s[i] == c)).ToArray()
+                                         );
+
+            return commonPrefix;
         }
 
         /// <summary>

@@ -49,6 +49,8 @@ namespace ACMTest
 
             // Generates all possible substrings of a string
             List<string> allSubstrings = "i love cats".FindAllSubstrings().ToList();
+            string prefix = "the cat in the hat:the cat loves me:the cat eats mice".ToStringList(":").ShortestCommonPrefix(); // "the cat"
+
 
             // Greatest common divisor (biggest number that divides 12 and 8)
             int gcd = ACM.GreatestCommonDivisor(12, 8);  // 4
