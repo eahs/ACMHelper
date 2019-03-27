@@ -346,6 +346,7 @@ public class ACM
 
         int sum = list.stream().mapToInt(Integer::intValue).sum();
 
+
         return sum;
     }
 

@@ -62,6 +62,20 @@ namespace ACMTest
             bool equals = allSubstrings.SequenceEqual(allSubstrings);
 
             List<int> digits = 12345.ToIntegerList();
+            // Rotate a list
+            List<int> rotateLeft = nums.Rotate(2);
+            List<int> rotateRight = nums.Rotate(-2);
+
+            // Generate permutations of a list
+            List<int> plist = 1234.ToIntegerList();
+
+            var permutations = plist.Permute().ToList();
+
+            foreach (var permutation in permutations)
+            {
+                List<int> perm = permutation.ToList();
+            }
+
         }
     }
 }

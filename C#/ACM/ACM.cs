@@ -504,5 +504,56 @@ namespace ACMHelper
             return (a / GreatestCommonDivisor(a, b)) * b;
         }
 
+        /// <summary>
+        /// Given an array of integers, return indices of the two numbers such that they add up to a specific target.
+        /// You may assume that each input would have exactly one solution.
+        ///
+        /// Example:
+        /// Given nums = [2, 7, 11, 15], target = 9,
+        ///
+        /// Because nums[0] + nums[1] = 2 + 7 = 9,
+        /// return [0, 1].
+        /// </summary>
+        /// <param name="nums">List of integers to search</param>
+        /// <param name="target">Integer you are trying to match</param>
+        /// <returns></returns>
+        public static int[] TwoSum(List<int> nums, int target)
+        {
+            for (var i = 0; i < nums.Count; i++)
+            {
+                for (var j = nums.Count - 1; j > i; j--)
+                {
+                    if (i != j)
+                    {
+                        if (nums[i] + nums[j] == target)
+                        {
+                            return new int[] { i, j };
+                        }
+                    }
+                }
+            }
+            return new int[] { };
+        }
+
+        /// <summary>
+        /// Given a list, rotates the list such that each element is shifted offset places to the left.
+        ///
+        /// Rotate 1 each time:
+        /// List<int> {1,2,3,4,5} => {2,3,4,5,1} => {3,4,5,1,2} => {4,5,1,2,3}        
+        ///  
+        /// </summary>
+        /// <param name="list">List of integers to rotate</param>
+        /// <param name="leftOffset">Places to the left to rotate</param>
+        /// <returns></returns>
+        public static List<T> Rotate<T>(this List<T> list, int leftOffset = 1)
+        {
+            int offset = leftOffset % list.Count;
+            if (offset < 0)
+            {
+                offset *= -1;
+                return list.Skip(list.Count - offset).Take(offset).Concat(list.Take(list.Count - offset)).ToList();
+            }
+            return list.Skip(offset).Concat(list.Take(offset)).ToList();
+        }
     }
 }

@@ -1,4 +1,9 @@
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class Main {
 
@@ -37,5 +42,28 @@ public class Main {
         String common = ACM.longestCommonSubstring(a, b);  // "the cat in the "
 
         String rgx = ACM.regexReplace("aabbba", "[a]+", m -> m.group().length()+"");
+
+        String rev = ACM.regexReplace("monkeyCATtacoBOAT", "[A-Z]+", m -> ACM.reverseString(m.group()));
+
+        List<Integer> list = ACM.toIntegerList("1 2 2 3 3 3 4 4 4 4 5 5 5 5 5");
+        int freq = Collections.frequency(list,4); // 4 appears 4 times in the list
+        int max = Collections.max(list);
+
+        List<Integer> addme = IntStream.rangeClosed(1, 5).boxed().collect(Collectors.toList()); // [1,2,3,4,5]
+        int sum = ACM.sumList(addme); // 1 + 2 + 3 + 4 + 5 = 15
+
+        Collections.sort(list);
+        Collections.reverse(list);
+
+        //Creating LocalTime by providing input arguments
+        LocalTime time1 = LocalTime.of(12, 25, 0);
+        System.out.println("Specific Time of Day="+time1);
+
+        LocalTime time2 = time1.plus(3600, ChronoUnit.SECONDS);  // Add 3600 seconds to 12:25PM
+
+        System.out.println(time2.format(DateTimeFormatter.ofPattern("HH:mm")));  // 13:25
+        System.out.println(time2.format(DateTimeFormatter.ofPattern("hh:mm a"))); // 12:25PM
+
+
     }
 }
