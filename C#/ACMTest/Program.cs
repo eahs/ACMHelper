@@ -58,6 +58,10 @@ namespace ACMTest
             // Least common multiple (first number that is a multiple of a and b)
             int lcm = ACM.LeastCommonMultiple(2, 7);  // 14
 
+            // Check if two lists contain indentical elements (order matters)
+            bool equals = allSubstrings.SequenceEqual(allSubstrings);
+
+            List<int> digits = 12345.ToIntegerList();
         }
     }
 }
