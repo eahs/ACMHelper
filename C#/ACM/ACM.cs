@@ -280,9 +280,12 @@ namespace ACMHelper
         /// </summary>
         /// <param name="list">List of integers</param>
         /// <returns></returns>
-        public static bool IsIncreasing(this List<int> list)
+        public static bool IsIncreasing(this List<int> list, int startIndex = 0, int endIndex = -1)
         {
-            for (int i = 0; i < list.Count - 1; i++)
+            if (endIndex == -1)
+                endIndex = list.Count - 1;
+
+            for (int i = startIndex; i < endIndex; i++)
             {
                 if (list[i] >= list[i + 1])
                     return false;
@@ -302,6 +305,27 @@ namespace ACMHelper
             Array.Reverse(chars);
             return new String(chars);
         }
+
+        /// <summary>
+        /// Reverses an integer -> 1234 => 4321
+        /// </summary>
+        /// <param name="input">int to reverse</param>
+        /// <returns></returns>
+        public static int Reverse(this int input)
+        {
+            int sum = 0;
+
+            do
+            {
+                sum *= 10;
+                sum += input % 10;
+                input /= 10;
+            } while (input > 0);
+
+            return sum;
+        }
+
+
 
         /// <summary>
         /// Converts the given decimal number to the numeral system with the

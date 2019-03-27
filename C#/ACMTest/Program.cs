@@ -62,6 +62,7 @@ namespace ACMTest
             bool equals = allSubstrings.SequenceEqual(allSubstrings);
 
             List<int> digits = 12345.ToIntegerList();
+
             // Rotate a list
             List<int> rotateLeft = nums.Rotate(2);
             List<int> rotateRight = nums.Rotate(-2);
@@ -76,6 +77,10 @@ namespace ACMTest
                 List<int> perm = permutation.ToList();
             }
 
+            List<int> blist = 12344321.ToIntegerList();
+            bool increasing = blist.IsIncreasing(0, 3);
+
+            int revint = 12345.Reverse();
         }
     }
 }
