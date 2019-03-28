@@ -10,6 +10,7 @@ namespace ACMTest
     {
         static void Main(string[] args)
         {
+            
             // Generate list of primes less than or equal to 5000
             List<int> primes = ACM.GeneratePrimes(5000);
             List<int> primesFaster = ACM.GeneratePrimesParallel(5000);
@@ -72,6 +73,7 @@ namespace ACMTest
 
 
             List<int> digits = 12345.ToIntegerList();
+            int least = digits.Min();
 
             // Rotate a list
             List<int> rotateLeft = nums.Rotate(2);
