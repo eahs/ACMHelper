@@ -72,6 +72,33 @@ namespace ACMHelper
             return factors;
         }
 
+        /// <summary>
+        /// Greatest Prime Factor
+        /// </summary>
+        /// <param name="n">Number to factor</param>
+        /// <returns></returns>
+        public static int GreatestPrimeFactor(this int n)
+        {
+            if (n == 1) return 1;
+
+            if (primeList == null || n > maxPrime)
+            {
+                throw new Exception("You must call ACM.GeneratePrimes(n) for the highest n you expect to need to check at least once before using this method.");
+            }
+
+            int max = 2, current = 0;
+            foreach (int p in primeList)
+            {
+                current = n % p;
+                if (current == 0 & p > max)
+                    max = p;
+
+                if (p > n) break;
+            }
+
+            return max;
+        }
+
         /* Returns a list of primes up to n using parallelization */
         public static List<int> GeneratePrimesParallel(int n)
         {

@@ -215,6 +215,35 @@ public class ACM
         return factors;
     }
 
+    // Get prime factors for a number n
+    public static int greatestPrimeFactor (int n)
+    {
+        if (n == 1) return 1;
+
+        if (((primeList == null) || (n > maxPrime))) {
+            System.out.println("You must call ACM.GeneratePrimes(n) for the highest n you expect to need to check at least once befor" +
+                    "e using this method.");
+            exit();
+
+        }
+
+        int size = primeList.size();
+        int max = 2, current = 0;
+
+        for (int p : primeList) {
+            current = n % p;
+
+            if (current == 0 && p > max)
+                max = p;
+
+            if (p > n)
+                break;
+        }
+
+        return max;
+    }
+
+
     // Evaluates a string math expression and returns a result
     public static double evaluate(final String str) {
         return new Object() {

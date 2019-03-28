@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using ACMHelper;
 
@@ -17,6 +18,8 @@ namespace ACMTest
 
             int fact = 88;
             List<int> factors2 = fact.GetPrimeFactors();  // [2, 2, 2, 11]
+
+            int gpf = 4997.GreatestPrimeFactor();  // 263
 
             // Parse input strings
             List<int> nums = "1 2 3 4 5 6 7 8 9 10".ToIntegerList();
@@ -59,7 +62,14 @@ namespace ACMTest
             int lcm = ACM.LeastCommonMultiple(2, 7);  // 14
 
             // Check if two lists contain indentical elements (order matters)
-            bool equals = allSubstrings.SequenceEqual(allSubstrings);
+            List<int> aq = 123456789.ToIntegerList();  // [1,2,3,4,5,6,7,8,9]
+            List<int> bq = 123456789.ToIntegerList();  // [1,2,3,4,5,6,7,8,9]
+            List<int> cq = 987654321.ToIntegerList();  // [9,8,7,6,5,4,3,2,1]
+
+            bool equals = aq.SequenceEqual(bq);   // true because both lists have same numbers in same sequence
+            bool equals2 = aq.SequenceEqual(cq);  // false, same numbers but different order
+            bool equals3 = aq.All(k => cq.Contains(k)) && aq.Count == cq.Count;
+
 
             List<int> digits = 12345.ToIntegerList();
 

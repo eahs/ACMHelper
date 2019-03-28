@@ -12,6 +12,7 @@ public class Main {
         // Prime number stuff
         List<Integer> primes = ACM.generatePrimes(5000);
         List<Integer> primeFactors = ACM.getPrimeFactors(88); // [2, 2, 2, 11]
+        int gpf = ACM.greatestPrimeFactor(4997);  // 4962
 
         // Parsing input
 
