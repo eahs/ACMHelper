@@ -267,6 +267,37 @@ namespace ACMHelper
             }
         }
 
+        /// <summary>
+        /// Returns an Enumerable of Enumerables - All possible combinations of size k as picked from a list of possibilities
+        /// </summary>
+        /// <param name="data">Source list</param>
+        /// <param name="k">number of objects to choose from list</param>
+        /// <returns></returns>
+        public static IEnumerable<IEnumerable<T>> Choose<T>(this List<T> data, int k)
+        {
+            int size = data.Count;
+
+            IEnumerable<IEnumerable<T>> Runner(IEnumerable<T> list, int n)
+            {
+                int skip = 1;
+                foreach (var headList in list.Take(size - k + 1).Select(h => new T[] { h }))
+                {
+                    if (n == 1)
+                        yield return headList;
+                    else
+                    {
+                        foreach (var tailList in Runner(list.Skip(skip), n - 1))
+                        {
+                            yield return headList.Concat(tailList);
+                        }
+                        skip++;
+                    }
+                }
+            }
+
+            return Runner(data, k);
+        }
+
         private static IEnumerable<T> Concat<T>(this T firstElement, IEnumerable<T> secondSequence)
         {
             yield return firstElement;
@@ -320,6 +351,38 @@ namespace ACMHelper
 
             return true;
         }
+
+        /// <summary>
+        /// Returns a single row of a 2D array
+        /// </summary>
+        /// <param name="row">Row to return</param>
+        /// <returns></returns>
+        public static IEnumerable<T> GetRow<T>(this T[,] array, int row)
+        {
+            for (int i = 0; i <= array.GetUpperBound(1); ++i)
+                yield return array[row, i];
+        }
+
+        /// <summary>
+        /// Returns a single column of a 2D array
+        /// </summary>
+        /// <param name="row">Row to return</param>
+        /// <returns></returns>
+        public static IEnumerable<T> GetColumn<T>(this T[,] array, int column)
+        {
+            for (int i = 0; i <= array.GetUpperBound(0); ++i)
+                yield return array[i, column];
+        }
+
+        /// <summary>
+        /// Returns the sum of a 2D array
+        /// </summary>
+        /// <returns></returns>
+        public static int Sum(this int[,] array)
+        {
+            return array.Cast<int>().Sum();
+        }
+
 
         /// <summary>
         /// Reverses a string - e.g. "taco" => "ocat"

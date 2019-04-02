@@ -22,7 +22,9 @@ public class Main {
 
         // Turn a string into an integer list
         // ex.  List<Integer> nums = ACM.toIntegerList(scan.nextLine());
-        List<Integer> nums = ACM.toIntegerList("1 2 3 4 5");
+        List<Integer> nums = ACM.toIntegerList("1 2 3 4 5 6 7 8 9 10");
+
+        List<List<Integer>> permutations = ACM.permute(nums);
 
         // Reverse a string
         String s = "taco";
