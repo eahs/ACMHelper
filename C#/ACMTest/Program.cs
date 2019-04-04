@@ -93,6 +93,8 @@ namespace ACMTest
             bool increasing = blist.IsIncreasing(0, 3);
 
             int revint = 12345.Reverse();
+
+            bool res = 123457789.ToIntegerList().IsIncreasing();
         }
     }
 }

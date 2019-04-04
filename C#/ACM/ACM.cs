@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Numerics;
 
 namespace ACMHelper
 {
@@ -128,6 +129,29 @@ namespace ACMHelper
         {
             return input.Split(delimeter).Select(n => Convert.ToInt32(n)).ToList();
         }
+
+        /// <summary>
+        /// Given an input string containing numbers separated by spaces, returns a list of longs
+        /// </summary>
+        /// <param name="input">Input string delimeted by delimeter string</param>
+        /// <param name="delimeter">String that separates each number int the input - default is a space</param>
+        /// <returns></returns>
+        public static List<long> ToLongList(this string input, string delimeter = " ")
+        {
+            return input.Split(delimeter).Select(n => Convert.ToInt64(n)).ToList();
+        }
+
+        /// <summary>
+        /// Given an input string containing numbers separated by spaces, returns a list of longs
+        /// </summary>
+        /// <param name="input">Input string delimeted by delimeter string</param>
+        /// <param name="delimeter">String that separates each number int the input - default is a space</param>
+        /// <returns></returns>
+        public static List<BigInteger> ToBigIntegerList(this string input, string delimeter = " ")
+        {
+            return input.Split(delimeter).Select(n => BigInteger.Parse(n)).ToList();
+        }
+
 
         /// <summary>
         /// Given an integer splits the integer into it's individual digits and returns a list of ints
@@ -273,9 +297,9 @@ namespace ACMHelper
         /// <param name="data">Source list</param>
         /// <param name="k">number of objects to choose from list</param>
         /// <returns></returns>
-        public static IEnumerable<IEnumerable<T>> Choose<T>(this List<T> data, int k)
+        public static IEnumerable<IEnumerable<T>> Choose<T>(this IEnumerable<T> data, int k)
         {
-            int size = data.Count;
+            int size = data.Count();
 
             IEnumerable<IEnumerable<T>> Runner(IEnumerable<T> list, int n)
             {
@@ -338,14 +362,16 @@ namespace ACMHelper
         /// </summary>
         /// <param name="list">List of integers</param>
         /// <returns></returns>
-        public static bool IsIncreasing(this List<int> list, int startIndex = 0, int endIndex = -1)
+        public static bool IsIncreasing<T>(this IEnumerable<T> list, int startIndex = 0, int endIndex = -1) where T : IComparable
         {
+            List<T> seq = list.ToList();
+
             if (endIndex == -1)
-                endIndex = list.Count - 1;
+                endIndex = seq.Count - 1;
 
             for (int i = startIndex; i < endIndex; i++)
-            {
-                if (list[i] >= list[i + 1])
+            {                
+                if (Comparer<T>.Default.Compare(seq[i], seq[i + 1]) >= 0)
                     return false;
             }
 
