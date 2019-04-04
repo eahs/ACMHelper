@@ -493,6 +493,32 @@ public class ACM
 
         return sb.toString();
     }
+    
+    //returns all substrings of a string
+    public static List<String> findAllSubstrings (String input)
+    {
+        return findAllSubstrings(input, ".*"); 
+    }
+
+      //returns all substrings of a string that match a pattern
+    public static List<String> findAllSubstrings(String input, String regex)
+    {
+        List<String> substrings = new ArrayList<>(); 
+
+        for (int i = 0; i < input.length(); i++)
+        {
+          for (int j = i + 1; j <= input.length(); j++)
+          {
+            String sub = input.substring(i, j); 
+
+            if (sub.matches(regex))
+              substrings.add(sub); 
+           } 
+         }
+
+        return substrings; 
+     }
+    
 
 }
 
